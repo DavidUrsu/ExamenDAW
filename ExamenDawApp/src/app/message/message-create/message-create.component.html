@@ -1,0 +1,7 @@
+<form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="text">Message:</label>
+      <input type="text" id="text" formControlName="text" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>

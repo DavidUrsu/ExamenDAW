@@ -1,0 +1,7 @@
+ng g c message
+ng g s shared/message
+ng g cl shared/message --type=model
+
+ng generate environments
+
+ng serve
