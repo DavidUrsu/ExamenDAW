@@ -1,0 +1,9 @@
+<div class="list-group">
+    <a href="#" class="list-group-item list-group-item-action" *ngFor="let autor of service.list">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">Nume: {{autor.name}}</h5>
+        <small>Id: {{autor.autorId}}</small>
+      </div>
+      <p>Editura Id: {{autor.edituraId}}</p>
+    </a>
+  </div>

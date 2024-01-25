@@ -1,0 +1,7 @@
+<form [formGroup]="carteForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="text">Titlu:</label>
+      <input type="text" id="text" formControlName="title" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>

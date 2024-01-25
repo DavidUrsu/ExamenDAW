@@ -22,6 +22,77 @@ namespace ExamenDAWAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ExamenDAW_API.Models.Autor", b =>
+                {
+                    b.Property<int>("AutorId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AutorId"));
+
+                    b.Property<int>("EdituraId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AutorId");
+
+                    b.HasIndex("EdituraId");
+
+                    b.ToTable("Autori");
+                });
+
+            modelBuilder.Entity("ExamenDAW_API.Models.Carte", b =>
+                {
+                    b.Property<int>("CarteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CarteId"));
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CarteId");
+
+                    b.ToTable("Carti");
+                });
+
+            modelBuilder.Entity("ExamenDAW_API.Models.CarteAutor", b =>
+                {
+                    b.Property<int>("CarteId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AutorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CarteId", "AutorId");
+
+                    b.HasIndex("AutorId");
+
+                    b.ToTable("CarteAutori");
+                });
+
+            modelBuilder.Entity("ExamenDAW_API.Models.Editura", b =>
+                {
+                    b.Property<int>("EdituraId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EdituraId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EdituraId");
+
+                    b.ToTable("Edituri");
+                });
+
             modelBuilder.Entity("ExamenDAW_API.Models.Message", b =>
                 {
                     b.Property<int>("Id")
@@ -40,6 +111,51 @@ namespace ExamenDAWAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("ExamenDAW_API.Models.Autor", b =>
+                {
+                    b.HasOne("ExamenDAW_API.Models.Editura", "Editura")
+                        .WithMany("Autors")
+                        .HasForeignKey("EdituraId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Editura");
+                });
+
+            modelBuilder.Entity("ExamenDAW_API.Models.CarteAutor", b =>
+                {
+                    b.HasOne("ExamenDAW_API.Models.Autor", "Autor")
+                        .WithMany("CarteAutors")
+                        .HasForeignKey("AutorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ExamenDAW_API.Models.Carte", "Carte")
+                        .WithMany("CarteAutors")
+                        .HasForeignKey("CarteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Autor");
+
+                    b.Navigation("Carte");
+                });
+
+            modelBuilder.Entity("ExamenDAW_API.Models.Autor", b =>
+                {
+                    b.Navigation("CarteAutors");
+                });
+
+            modelBuilder.Entity("ExamenDAW_API.Models.Carte", b =>
+                {
+                    b.Navigation("CarteAutors");
+                });
+
+            modelBuilder.Entity("ExamenDAW_API.Models.Editura", b =>
+                {
+                    b.Navigation("Autors");
                 });
 #pragma warning restore 612, 618
         }
